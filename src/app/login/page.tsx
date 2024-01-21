@@ -1,3 +1,4 @@
+import { Form } from "@/components/Form";
 import { redirect } from "next/navigation";
 
 function LoginPage() {
@@ -28,7 +29,7 @@ return (
 <div className="m-2">
     <div className="bg-white p-8 rounded shadow w-96">
     <h2 className="text-2xl mb-4 text-black">Login</h2>
-    <form action={loginAction}>
+    <Form action={loginAction}>
         <div>
         <label className="block text-sm text-gray-600">Usuario</label>
         <input
@@ -53,7 +54,7 @@ return (
             Entrar
         </button>
         </div>
-    </form>
+    </Form>
     </div>
 </div>
 );
