@@ -1,4 +1,4 @@
-import { getAuthData } from "@/actions/auth";
+import { getAuthData, logoutAction } from "@/actions/auth";
 
 
 export async function Navbar(){
@@ -11,9 +11,9 @@ return (
             <span className="text-xl font-semibold">
                 Olá, {authData.payload.username}
             </span>
-            {/* <form action= {logoutAction}>
+            <form action= {logoutAction}>
                 <button className="text-white al-2">Sair</button>
-            </form> */}
+            </form>
             </div>
         )}
     </nav>

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 
-export async function loginAction(prevState: any,formData: FormData){
+export async function loginAction(_prevState: any,formData: FormData){
         const response = await fetch("http://localhost:8000/login", {
             method: "POST",
             headers: {
@@ -27,6 +27,12 @@ export async function loginAction(prevState: any,formData: FormData){
     }
 }
 
+export async function logoutAction(){
+    const cookiesStore = cookies();
+    cookiesStore.delete("auth");
+    redirect("/login");
+}
+
 export async function getToken() {
     const authData = await getAuthData();
     return authData?.token;
@@ -42,7 +48,7 @@ export async function getAuthData() {
 }
 
 
-//FIXME: GERAR COOKIE DE FORMA CRIPTOGRAFADA & e gerar cookies seguros com https
+//FIXME: GERAR COOKIE DE FORMA CRIPTOGRAFADA & GERAR COOKIES SEGUROS COM HTTPS
 //TODO:libs: iron session edge: duas funções seal & unseal para criptografar e descriptografar
 export async function SetAuthData(jwtToken: string) {
     const payloadBase64 = jwtToken.split(".")[1];
@@ -53,3 +59,4 @@ export async function SetAuthData(jwtToken: string) {
         payload,
     }))
 }
+
