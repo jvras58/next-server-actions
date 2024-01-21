@@ -1,30 +1,8 @@
+import { loginAction } from "@/actions/auth";
 import { Form } from "@/components/Form";
-import { redirect } from "next/navigation";
+import { Submit } from "@/components/submit";
 
 function LoginPage() {
-
-    async function loginAction(formData: FormData){
-        "use server";
-        const response = await fetch("http://localhost:8000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: formData.get("username"),
-                password: formData.get("password"),
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        redirect("/protected");
-    }else{
-        const data = await response.json();
-        console.error(data);
-    }
-}
-
 return (
 <div className="m-2">
     <div className="bg-white p-8 rounded shadow w-96">
@@ -47,12 +25,12 @@ return (
         />
         </div>
         <div>
-        <button
+        <Submit
             type="submit"
             className=" bg-blue-600 text-white p-2 rounded w-full mt-4"
         >
             Entrar
-        </button>
+        </Submit>
         </div>
     </Form>
     </div>
