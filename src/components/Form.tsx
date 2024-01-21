@@ -17,9 +17,8 @@ type FormProps = PropsWithChildren<
 export function Form(props: FormProps) {
     const [state, FormAction] = useFormState(props.action, {error: null});
     console.log(state);
-    
     return <form {...props} action={FormAction}>
-        {state.error && <div className="bg-red-500 text-white p-2">{state.error}</div>}
+        {state?.error && <div className="bg-red-500 text-white p-2">{state.error}</div>}
         {props.children}
     </form>;
 }

@@ -1,35 +1,36 @@
 "use server";
-
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 
+// const password = process.env.COOKIE_ENCRYPTION_KEY;
+const password = "1234567891011121314151617181920212123242526272829303132"; 
 
-export async function loginAction(_prevState: any,formData: FormData){
-        const response = await fetch("http://localhost:8000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: formData.get("username"),
-                password: formData.get("password"),
+export async function loginAction(_prevState: any, formData: FormData) {
+    const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: formData.get("username"),
+            password: formData.get("password"),
         }),
     });
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         await SetAuthData(data.token);
         redirect("/protected");
-    }else{
+    } else {
         const data = await response.json();
         return { error: data.message };
     }
 }
 
-export async function logoutAction(){
-    const cookiesStore = cookies();
-    cookiesStore.delete("auth");
+export async function logoutAction() {
+    Cookies.remove("auth");
     redirect("/login");
 }
 
@@ -39,24 +40,31 @@ export async function getToken() {
 }
 
 export async function getAuthData() {
-    const cookiesStore = cookies();
-    const auth = cookiesStore.get("auth")?.value;
-    if (!auth) {
+    const encrypted = Cookies.get("auth");
+
+    if (!encrypted) {
         return null;
     }
-    return JSON.parse(auth);
+
+    // Descriptografa os dados
+    const bytes = CryptoJS.AES.decrypt(encrypted, password);
+    const unsealed = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+    return unsealed;
 }
 
-
-//FIXME: GERAR COOKIE DE FORMA CRIPTOGRAFADA & GERAR COOKIES SEGUROS COM HTTPS
-//TODO:libs: iron session edge: duas funções seal & unseal para criptografar e descriptografar
 export async function SetAuthData(jwtToken: string) {
     const payloadBase64 = jwtToken.split(".")[1];
     const payload = JSON.parse(atob(payloadBase64));
-    const cookiesStore = cookies();
-    cookiesStore.set("auth", JSON.stringify({
+
+    const objectToSeal = {
         token: jwtToken,
         payload,
-    }))
-}
+    };
 
+    // Criptografa os dados
+    const encrypted = CryptoJS.AES.encrypt(JSON.stringify(objectToSeal), password).toString();
+
+    // Armazena os dados criptografados no cookie
+    Cookies.set("auth", encrypted, { secure: true });
+}
