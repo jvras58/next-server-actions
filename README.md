@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Estudo de Next.js
 
-First, run the development server:
+Este é um repositório de estudos de [Next.js](https://nextjs.org/) utilizando o canal FullCycle. Você pode assistir ao vídeo tutorial [aqui](https://www.youtube.com/watch?v=cxk-077rxNU).
+
+## API Express
+
+O repositório inclui uma pseudo API feita com Express. Para rodá-la, execute o seguinte comando:
+
+```bash
+node node-api/api.js
+```
+
+Isso irá expor a porta 8000.
+
+## Rotas
+
+Este projeto contém duas rotas principais:
+
+- Rota de Login: Esta rota é usada para autenticar o usuário. Para fins de teste, use o usuário "admin" com a senha "admin".
+
+- Rota Protegida: Esta rota só pode ser acessada se o usuário estiver autenticado. Ela serve como um exemplo de como implementar rotas protegidas em um aplicativo Next.js usando o conceito de Server Actions.
+
+
+
+## Rodando o Projeto Next.js
+
+Para rodar o projeto Next.js, use o seguinte comando:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Autenticação
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Para fins de teste, a API possui apenas o usuário "admin" com a senha "admin".
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## TODOs e FIXMEs
 
-## Learn More
+Existem alguns TODOs e um FIXME muito importante no código. A parte de segurança e criptografia do token precisa ser observada e melhorada.
 
-To learn more about Next.js, take a look at the following resources:
+Este código foi criado para estudos de Server Actions e Server Client do Next.js.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Aprenda Mais
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Para aprender mais sobre Next.js, confira os seguintes recursos:
 
-## Deploy on Vercel
+- [Documentação do Next.js](https://nextjs.org/docs) - aprenda sobre os recursos e a API do Next.js.
+- [Aprenda Next.js](https://nextjs.org/learn) - um tutorial interativo do Next.js.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Você pode conferir [o repositório do Next.js no GitHub](https://github.com/vercel/next.js/) - seu feedback e contribuições são bem-vindos!
