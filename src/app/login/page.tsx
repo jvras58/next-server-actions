@@ -5,7 +5,7 @@ import { Submit } from "@/components/submit";
 
 function LoginPage() {
 return (
-<div className="m-2">
+<div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
     <div className="bg-white p-8 rounded shadow w-96">
     <h2 className="text-2xl mb-4 text-black">Login</h2>
     <Form action={loginAction}>

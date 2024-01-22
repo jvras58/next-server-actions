@@ -5,7 +5,8 @@ import { cookies } from "next/headers";
 
 
 export async function loginAction(_prevState: any,formData: FormData){
-        const response = await fetch("http://localhost:8000/login", {
+        // const response = await fetch("http://localhost:8000/login", {
+        const response = await fetch("http://localhost:8000/auth/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
